@@ -1,4 +1,5 @@
 .DS_Store
-TeleTransBot-39a9b61fdafa.json
+TeleTransCreds.json
 __pycache__
 venv/
+test.py

@@ -22,20 +22,32 @@ https://cloud.google.com/translate/docs.
 """
 
 import argparse
-
+import os
+import json
 import six
 
+def setEnv():
+    #Grab JSON Obj from env var and store in temp file
+    client_secret = os.environ.get('client_secret')
+    if client_secret:
+        jsonObj = json.loads(client_secret)
+        print(jsonObj["type"])
+        with open('TeleTransCreds.json', 'w') as outfile:
+            json.dump(jsonObj, outfile)
+    return True
 
 def detect_language(text):
     # [START translate_detect_language]
     """Detects the text's language."""
     from google.cloud import translate_v2 as translate
+    if not setEnv():
+        return ''
     translate_client = translate.Client()
 
     # Text can also be a sequence of strings, in which case this method
     # will return a sequence of results for each text.
     result = translate_client.detect_language(text)
-
+    #
     print('Text: {}'.format(text))
     print('Confidence: {}'.format(result['confidence']))
     print('Language: {}'.format(result['language']))
@@ -47,6 +59,8 @@ def list_languages():
     # [START translate_list_codes]
     """Lists all available languages."""
     from google.cloud import translate_v2 as translate
+    if not setEnv():
+      return ''
     translate_client = translate.Client()
 
     results = translate_client.get_languages()
@@ -64,6 +78,8 @@ def list_languages_with_target(target):
     See https://g.co/cloud/translate/v2/translate-reference#supported_languages
     """
     from google.cloud import translate_v2 as translate
+    if not setEnv():
+      return ''
     translate_client = translate.Client()
 
     results = translate_client.get_languages(target_language=target)
@@ -83,6 +99,8 @@ def translate_text_with_model(target, text, model='nmt'):
     See https://g.co/cloud/translate/v2/translate-reference#supported_languages
     """
     from google.cloud import translate_v2 as translate
+    if not setEnv():
+      return ''
     translate_client = translate.Client()
 
     if isinstance(text, six.binary_type):
@@ -108,6 +126,8 @@ def translate_text(target, text):
     See https://g.co/cloud/translate/v2/translate-reference#supported_languages
     """
     from google.cloud import translate_v2 as translate
+    if not setEnv():
+      return ''
     translate_client = translate.Client()
 
     if isinstance(text, six.binary_type):

@@ -1,9 +1,12 @@
 import flask
+import json
+import os
 # import requests
 from flask import request, jsonify
 from translate import detect_language, translate_text
 
 # import sqlite3
+
 
 
 
