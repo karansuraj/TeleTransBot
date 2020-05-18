@@ -1,5 +1,5 @@
 import flask
-import requests
+# import requests
 from flask import request, jsonify
 from translate import detect_language, translate_text
 

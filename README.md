@@ -1,4 +1,4 @@
-*General Strategy
+# General Strategy
 1. Work on calling google translate from flask REST endpoints
 2. Deploy flask server to netlify or other location via github CI/CD
 3. Work on calling Telegram API from flask server
