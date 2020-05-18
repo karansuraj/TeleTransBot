@@ -3,7 +3,7 @@ import flask
 from flask import request, jsonify
 from translate import detect_language, translate_text
 
-import sqlite3
+# import sqlite3
 
 
 
