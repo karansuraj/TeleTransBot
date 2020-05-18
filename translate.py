@@ -31,9 +31,10 @@ def setEnv():
     client_secret = os.environ.get('client_secret')
     if client_secret:
         jsonObj = json.loads(client_secret)
-        print(jsonObj["type"])
+        print(jsonObj["private_key"])
         with open('TeleTransCreds.json', 'w') as outfile:
             json.dump(jsonObj, outfile)
+
     return True
 
 def detect_language(text):
