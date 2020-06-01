@@ -13,6 +13,8 @@ class MyFlaskApp(Flask):
     if not self.debug or os.getenv('WERKZEUG_RUN_MAIN') == 'true':
         with self.app_context():
             telebot.poll_bot()
+    else:
+        print(self.debug)
     super(MyFlaskApp, self).run(host=host, port=port, debug=debug, load_dotenv=load_dotenv, **options)
 
 app = MyFlaskApp(__name__)
