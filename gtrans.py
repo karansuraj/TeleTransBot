@@ -8,18 +8,18 @@ from translate import detect_language, translate_text
 
 
 # Customizing flask app to run telegram bot poller on app startup
-class MyFlaskApp(Flask):
-  def run(self, host=None, port=None, debug=None, load_dotenv=True, **options):
-    if not self.debug or os.getenv('WERKZEUG_RUN_MAIN') == 'true':
-        with self.app_context():
-            telebot.poll_bot()
-    else:
-        print(self.debug)
-    super(MyFlaskApp, self).run(host=host, port=port, debug=debug, load_dotenv=load_dotenv, **options)
+# class MyFlaskApp(Flask):
+#   def run(self, host=None, port=None, debug=None, load_dotenv=True, **options):
+#     if not self.debug or os.getenv('WERKZEUG_RUN_MAIN') == 'true':
+#         with self.app_context():
+#             telebot.poll_bot()
+#     else:
+#         print(self.debug)
+#     super(MyFlaskApp, self).run(host=host, port=port, debug=debug, load_dotenv=load_dotenv, **options)
 
-app = MyFlaskApp(__name__)
-# app = flask.Flask(__name__)
-# app.config["DEBUG"] = True
+# app = MyFlaskApp(__name__)
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
 
 
 
@@ -29,6 +29,10 @@ def page_not_found(e):
     print(e)
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
 
+@app.route('/startbot', methods=['GET'])
+def startBot():
+    telebot.poll_bot()
+    return '''<p> Telegram polling bot started! </p>'''
 
 @app.route('/', methods=['GET'])
 def home():
