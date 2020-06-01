@@ -2,3 +2,4 @@ setuptools==41.2.0
 Flask==1.1.2
 google-cloud-translate==2.0.1
 gunicorn==20.0.4
+python-telegram-bot==12.7

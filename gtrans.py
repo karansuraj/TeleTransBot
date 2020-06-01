@@ -1,18 +1,12 @@
 import flask
 import json
 import os
-# import requests
+import telebot
 from flask import request, jsonify
 from translate import detect_language, translate_text
 
-# import sqlite3
-
-
-
-
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
-# app.config['DATABASE'] = 'school.db'
 
 
 @app.errorhandler(404)
@@ -53,4 +47,8 @@ def translate():
 
 
 if __name__ == '__main__':
+    # Start flask app
     app.run()
+
+    # Start Telegram bot polling agent
+    telebot.poll_bot()
