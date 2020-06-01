@@ -1,10 +1,11 @@
-# import flask
+import flask
 import json
 import os
 import telebot
-from flask import request, jsonify, Flask
+from flask import request, jsonify
 
 from translate import detect_language, translate_text
+
 
 
 # Customizing flask app to run telegram bot poller on app startup
@@ -18,6 +19,7 @@ from translate import detect_language, translate_text
 #     super(MyFlaskApp, self).run(host=host, port=port, debug=debug, load_dotenv=load_dotenv, **options)
 
 # app = MyFlaskApp(__name__)
+bot_started = False
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -31,8 +33,10 @@ def page_not_found(e):
 
 @app.route('/startbot', methods=['GET'])
 def startBot():
-    telebot.poll_bot()
-    return '''<p> Telegram polling bot started! </p>'''
+    if not bot_started:
+        telebot.poll_bot()
+        return '''<p> Telegram polling bot started! </p>'''
+    return '''<p> Telegram bot already running! </p>'''
 
 @app.route('/', methods=['GET'])
 def home():
