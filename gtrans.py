@@ -1,12 +1,24 @@
-import flask
+# import flask
 import json
 import os
 import telebot
-from flask import request, jsonify
+from flask import request, jsonify, Flask
+
 from translate import detect_language, translate_text
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+
+# Customizing flask app to run telegram bot poller on app startup
+class MyFlaskApp(Flask):
+  def run(self, host=None, port=None, debug=None, load_dotenv=True, **options):
+    if not self.debug or os.getenv('WERKZEUG_RUN_MAIN') == 'true':
+        with self.app_context():
+            telebot.poll_bot()
+    super(MyFlaskApp, self).run(host=host, port=port, debug=debug, load_dotenv=load_dotenv, **options)
+
+app = MyFlaskApp(__name__)
+# app = flask.Flask(__name__)
+# app.config["DEBUG"] = True
+
 
 
 @app.errorhandler(404)

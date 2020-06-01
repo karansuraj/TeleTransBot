@@ -25,15 +25,17 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 def start(update, context):
     # Send welcome message to user when start command is invoked
+    print("User "+str(update.effective_chat.id)+" made /start request\n")
     context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to the Google Translate bot! Any non-english text you type will be replied back to you in English.")
 
 
 def echo(update, context):
     # Translate the incoming message text and unescape any escaped HTML characters
+    print("User "+str(update.effective_chat.id)+" requested translation")
     translatedObject = translate_text('en',update.message.text)
     translatedText = translatedObject['translatedText']
     cleanedText = html.unescape(translatedText)
-
+    print
     # If the original message was not in English, send the translated response to the user
     if translatedObject['detectedSourceLanguage'] != 'en':
         context.bot.send_message(chat_id=update.effective_chat.id, text=cleanedText)
@@ -48,6 +50,7 @@ dispatcher.add_handler(echo_handler)
 
 def poll_bot():
     # Get the telegram bot polling
+    print("Telegram bot now polling...")
     updater.start_polling()
 
 if __name__ == '__main__':
