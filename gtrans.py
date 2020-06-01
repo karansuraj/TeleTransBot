@@ -49,6 +49,3 @@ def translate():
 if __name__ == '__main__':
     # Start flask app
     app.run()
-
-    # Start Telegram bot polling agent
-    telebot.poll_bot()
