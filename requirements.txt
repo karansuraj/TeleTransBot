@@ -1,4 +1,4 @@
-setuptools==65.5.1
+setuptools==70.0.0
 Flask==2.3.2
 google-cloud-translate==2.0.1
 gunicorn==22.0.0
